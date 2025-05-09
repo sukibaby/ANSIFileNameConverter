@@ -78,26 +78,19 @@ void renameFilesInFolder(const std::string& sourceFolder)
 			std::wregex nonAsciiRegex(LR"([^ -~])");
 			std::wstring newName = std::regex_replace(oldName, nonAsciiRegex, L"_");
 
-			if (oldName != newName)
-			{
-				if (renameFile(entry.path(), newName))
-				{
+			if (oldName != newName)	{
+				if (renameFile(entry.path(), newName)) {
 					FileCounters::incrementChangedFileCount();
-				}
-				else
-				{
+				} else {
 					FileCounters::incrementFailedFileCount();
 				}
-			}
-			else
-			{
+			} else {
 				FileCounters::incrementUnchangedFileCount();
 			}
 		}
 	}
 
 	std::cout << FileCounters::getCounters() << std::endl;
-	//std::wcout << L"File renaming completed in " << std::wstring(sourceFolder.begin(), sourceFolder.end()) << std::endl;
 }
 
 int main(int argc, char* argv[])
